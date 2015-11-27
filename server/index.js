@@ -1,18 +1,8 @@
-var settings = require('./setting');
-//var db = require('./db');
 var express = require('express');
 var path = require('path');
 var app = express();
 var fs = require('fs');
-// //looking for server unit
-// app.get('*/unit/*',function(req, res) {
-//   res.send('found Unit')
-// });
-
-// //looking for entire cabinet of data
-// app.get('/*', function(req, res) {
-//   res.send('returing cabinet')
-// });
+var port = process.env.PORT || 3000;
 
 //Serve webpage
 app.use(express.static(path.resolve(__dirname +"/../client")))
@@ -34,6 +24,6 @@ app.get('', function(req, res) {
   res.send('serving webpage')
 })
 
-app.listen(settings.port, function() {
-  console.log('listening on port ' + settings.port)
+app.listen(port, function() {
+  console.log('listening on port ' + port)
 });

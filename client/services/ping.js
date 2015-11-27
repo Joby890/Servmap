@@ -2,7 +2,7 @@
 class Ping extends Service {
   constructor(device) {
     super("ping", device);
-    this.url = "http://10.0.0.41"
+    this.url = "http://10.0.0.41:3001"
     this.fields.status = "Pending";
     this.d3Render = {type: "image", value: "assests/status/yellow.png", width: 20, height: 20}
   }
