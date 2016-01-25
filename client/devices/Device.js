@@ -10,11 +10,12 @@ class Device {
     this.info = null;
     this.image = image;
     this.services = {};
+    this.tosave = true;
     for(var key in services) {
       this.services[key] = serviceManager.get(key, this);
       this.services[key].fields = services[key].fields;
     }
-    
+
   }
 
 
@@ -69,7 +70,7 @@ class Device {
       }
     })
     .call(drag);
-   
+
   }
 
   openInfomation() {
@@ -140,7 +141,7 @@ class Device {
   }
 
   update() {
-    
+
 
     if(this.info) {
       this.info.remove();
@@ -182,11 +183,16 @@ class Device {
         .style("visibility", function(d) {
           return self.group ? "hidden" : "visible";
         });
-        
+
       }
     }
-    
 
+
+  }
+
+
+  shouldSave() {
+    return this.tosave;
   }
 
   save(obj) {
@@ -196,7 +202,8 @@ class Device {
     obj.connections = this.connections;
     obj.image = this.image;
     obj.ip = this.ip;
-    console.log(this.services)
+    console.log(this.constructor.name);
+    obj.loadType = this.constructor.name;
     obj.services = this.services;
     return obj;
   }
@@ -220,7 +227,7 @@ function showAddServices(device) {
         div.empty();
         $(".infomation").empty();
         device.openInfomation();
-     
+
       });
     })(key);
 
@@ -231,3 +238,7 @@ function showAddServices(device) {
 }
 
 window.Device = Device;
+
+Device.load = function(obj) {
+  return new Device(obj.id, obj.name, obj.ip, obj.pos, obj.image,  obj.connections, obj.services);
+};

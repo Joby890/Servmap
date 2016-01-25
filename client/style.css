@@ -28,6 +28,12 @@
   bottom: 55px;
 }
 
+#share {
+  position: absolute;
+  bottom: 55px;
+  left: 60px;
+}
+
 #connection {
   position: absolute;
   bottom: 30px;

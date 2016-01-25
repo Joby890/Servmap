@@ -1,7 +1,7 @@
 'use strict'
 
 class ServiceManager {
-  
+
   constructor() {
     this.services = {};
   }
@@ -11,6 +11,9 @@ class ServiceManager {
   }
 
   get(id, device) {
+    if(!this.services[id]) {
+      return {};
+    }
     var service = new this.services[id](device);
     setTimeout(service.start.bind(service))
     return service;
