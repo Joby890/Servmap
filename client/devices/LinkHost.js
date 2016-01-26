@@ -1,7 +1,7 @@
 'use strict';
 class LinkHost extends Device {
   constructor(id, name, pos, connections, services, type, port) {
-    super(id, name, null, pos, "links/link.png", null, null);
+    super(id, name, null, pos, "links/link.png", connections, services, null, null);
     this.type = type || "Client";
     this.port = port || 1;
     var self = this;
@@ -10,23 +10,31 @@ class LinkHost extends Device {
       getRemoteMap(this.type).then(function(result) {
         result = JSON.parse(result);
         var offset;
+        console.log(result);
         _.each(result, function(obj) {
           //Check if we have a link to a clinet port
           if(obj.type === "Client" && obj.port === self.port) {
             //We need to get a new positions for all items mapped to the links
             offset = {x: self.pos.x - obj.pos.x, y: self.pos.y - obj.pos.y};
-            console.log(offset);
+            self.connections.concat(obj.connections);
+            _.each(obj.connections, function(id) {
+              result[id].connections.push(self.id);
+            });
+            delete result[obj.id];
           }
         });
-        _.each(result, function(obj) {
-          var objtype = window[obj.loadType].load;
-          obj.pos.x = obj.pos.x + offset.x;
-          obj.pos.y = obj.pos.y + offset.y;
-          var instance = objtype(obj);
-          instance.tosave = false;
-          addDevice(instance);
-        });
-        updateApp();
+        if(offset) {
+          _.each(result, function(obj) {
+            var objtype = window[obj.loadType].load;
+            obj.pos.x = obj.pos.x + offset.x;
+            obj.pos.y = obj.pos.y + offset.y;
+            var instance = objtype(obj);
+            instance.tosave = false;
+            addDevice(instance);
+          });
+          updateApp();
+          
+        }
       });
     }
   }
