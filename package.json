@@ -4,13 +4,18 @@
   "description": "Manange Server Meanly",
   "main": "nodemon server/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/index.js"
   },
   "author": "Joseph Brumaghim",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^0.8.5",
+    "body-parser": "^1.15.0",
+    "cookie-parser": "^1.4.1",
+    "express": "^4.13.4",
     "express-session": "^1.12.1",
+    "mongoose": "^4.4.3",
     "passport": "^0.3.2",
     "passport-google-oauth": "^0.2.0",
     "passport-local": "^1.0.0"

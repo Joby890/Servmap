@@ -3,11 +3,18 @@ var path = require('path');
 var app = express();
 var fs = require('fs');
 var port = process.env.PORT || 3000;
+var mongourl = process.env.MONGOLAB_URI || "localhost";
 
 var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var mongoose = require('mongoose');
-mongoose.connect("localhost");
+mongoose.connect(mongourl, function (err, res) {
+  if (err) {
+    console.log ('ERROR connecting to: ' + mongourl + '. ' + err);
+  } else {
+    console.log ('Succeeded connected to: ' + mongourl);
+  }
+});
 var Share = require('./share');
 var ObjectId = mongoose.Types.ObjectId;
 
