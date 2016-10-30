@@ -67,7 +67,7 @@ app.post('/get', function(req, res) {
     if(err) {
       console.log(err);
     }
-    res.send(result.net);
+    res.send(result && result.net);
   });
 });
 
