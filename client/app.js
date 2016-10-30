@@ -123,6 +123,9 @@ $(this).ready(function() {
     }).then(function(result) {
       alert("Shared at: " + result.id);
       console.log("Shared at: " + result.id);
+      if(id !== result.id) {
+        window.open("/" + result.id, "_blank");
+      }
     });
     console.log("Sharing.");
   });
